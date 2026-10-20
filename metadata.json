@@ -1,0 +1,6 @@
+{
+  "name": "Al-Tahoona AC & Contracting | شركة الطاحونة",
+  "description": "Static bilingual website for Al-Tahoona General Contracting Co. Ltd. specializing in Central Air Conditioning & HVAC, with comfy eye-friendly paper light mode and OLED true black dark mode.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

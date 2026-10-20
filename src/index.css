@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --paper-bg: #FCFAF7;
+    --paper-text: #000000;
+  }
+
+  .dark {
+    --paper-bg: #000000;
+    --paper-text: #FFFFFF;
+  }
+
+  html {
+    background-color: var(--paper-bg);
+    color: var(--paper-text);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--paper-bg);
+    color: var(--paper-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Specific typography classes */
+  .font-editorial {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-prose-serif {
+    font-family: 'Lora', Georgia, serif;
+  }
+
+  .font-arabic-display {
+    font-family: 'Cairo', 'Readex Pro', 'Almarai', system-ui, sans-serif;
+  }
+
+  .font-arabic-body {
+    font-family: 'Readex Pro', 'Almarai', 'Cairo', system-ui, sans-serif;
+  }
+}
