@@ -1,16 +1,9 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @layer base {
   :root {
     --paper-bg: #FCFAF7;
     --paper-text: #000000;
-  }
-
-  .dark {
-    --paper-bg: #000000;
-    --paper-text: #FFFFFF;
   }
 
   html {

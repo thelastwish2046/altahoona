@@ -1,16 +1,15 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Snowflake } from 'lucide-react';
-import { Language, Theme, SITE_CONTENT } from '../types';
+import { Language, SITE_CONTENT } from '../types';
+import { sectionTransitionVariants } from '../animations';
 
 interface ContactSectionProps {
   language: Language;
-  theme: Theme;
 }
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ language, theme }) => {
+export const ContactSection: React.FC<ContactSectionProps> = ({ language }) => {
   const isAr = language === 'ar';
-  const isDark = theme === 'dark';
 
   const location = isAr ? SITE_CONTENT.locationAr : SITE_CONTENT.locationEn;
   const nameMahmoud = isAr ? SITE_CONTENT.engineerMahmoudAr : SITE_CONTENT.engineerMahmoudEn;
@@ -18,27 +17,30 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ language, theme 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      variants={sectionTransitionVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
       className="w-full max-w-3xl mx-auto py-10 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center"
     >
       {/* Centered Engineers Portraits (Left: Eng. Mahmoud, Right: Eng. Farqad) */}
       <div className="flex items-center justify-center gap-5 sm:gap-10 md:gap-16 mb-8 sm:mb-12 w-full">
         {/* Left Photo: Engineer Mahmoud */}
         <div className="flex flex-col items-center">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-38 md:h-38 rounded-full overflow-hidden mb-2 sm:mb-3 ring-2 ring-stone-300/40 dark:ring-neutral-700/60 shadow-sm shrink-0">
+          <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-38 md:h-38 rounded-full overflow-hidden mb-2 sm:mb-3 ring-2 ring-stone-300/40 shadow-sm shrink-0">
             <img
               src={SITE_CONTENT.engineerMahmoudImage}
               alt={nameMahmoud}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               className="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105"
             />
           </div>
           <span
-            className={`text-sm sm:text-base md:text-lg font-bold ${
-              isDark ? 'text-white' : 'text-black'
-            } ${isAr ? 'font-arabic-display' : 'font-editorial'}`}
+            className={`text-sm sm:text-base md:text-lg font-bold text-black ${
+              isAr ? 'font-arabic-display' : 'font-editorial'
+            }`}
           >
             {nameMahmoud}
           </span>
@@ -46,17 +48,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ language, theme 
 
         {/* Right Photo: Engineer Farqad */}
         <div className="flex flex-col items-center">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-38 md:h-38 rounded-full overflow-hidden mb-2 sm:mb-3 ring-2 ring-stone-300/40 dark:ring-neutral-700/60 shadow-sm shrink-0">
+          <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-38 md:h-38 rounded-full overflow-hidden mb-2 sm:mb-3 ring-2 ring-stone-300/40 shadow-sm shrink-0">
             <img
               src={SITE_CONTENT.engineerFarqadImage}
               alt={nameFarqad}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               className="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105"
             />
           </div>
           <span
-            className={`text-sm sm:text-base md:text-lg font-bold ${
-              isDark ? 'text-white' : 'text-black'
-            } ${isAr ? 'font-arabic-display' : 'font-editorial'}`}
+            className={`text-sm sm:text-base md:text-lg font-bold text-black ${
+              isAr ? 'font-arabic-display' : 'font-editorial'
+            }`}
           >
             {nameFarqad}
           </span>
@@ -67,9 +72,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ language, theme 
       <div className="space-y-3.5 sm:space-y-4 w-full text-center">
         {/* Location */}
         <p
-          className={`flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-semibold leading-relaxed ${
-            isDark ? 'text-neutral-200' : 'text-neutral-900'
-          } ${isAr ? 'font-arabic-body' : 'font-sans'}`}
+          className={`flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base font-semibold leading-relaxed text-neutral-900 ${
+            isAr ? 'font-arabic-body' : 'font-sans'
+          }`}
         >
           <MapPin className="w-4 h-4 shrink-0 opacity-80" />
           <span>{location}</span>
@@ -77,9 +82,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ language, theme 
 
         {/* Phone Numbers with Snowflake separator */}
         <div
-          className={`flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-xs sm:text-sm md:text-base font-semibold ${
-            isDark ? 'text-neutral-200' : 'text-neutral-900'
-          } font-sans`}
+          className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-xs sm:text-sm md:text-base font-semibold text-neutral-900 font-sans"
           dir="ltr"
         >
           <div className="flex items-center gap-1">
@@ -103,11 +106,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ language, theme 
         </div>
 
         {/* Email */}
-        <p
-          className={`flex items-center justify-center gap-1.5 text-xs sm:text-sm md:text-base font-semibold ${
-            isDark ? 'text-neutral-200' : 'text-neutral-900'
-          } font-sans`}
-        >
+        <p className="flex items-center justify-center gap-1.5 text-xs sm:text-sm md:text-base font-semibold text-neutral-900 font-sans">
           <Mail className="w-3.5 h-3.5 shrink-0 opacity-80" />
           <a
             href={`mailto:${SITE_CONTENT.email}`}

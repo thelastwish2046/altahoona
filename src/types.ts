@@ -1,5 +1,4 @@
 export type Language = 'en' | 'ar';
-export type Theme = 'light' | 'dark';
 
 export type SectionId = 'home' | 'about' | 'gallery' | 'services' | 'contact';
 
@@ -30,10 +29,6 @@ export interface SiteContent {
   emptySectionNoticeAr: string;
   backHomeEn: string;
   backHomeAr: string;
-  themeLightEn: string;
-  themeLightAr: string;
-  themeDarkEn: string;
-  themeDarkAr: string;
   copyNameEn: string;
   copyNameAr: string;
   copiedEn: string;
@@ -82,10 +77,6 @@ export const SITE_CONTENT: SiteContent = {
   emptySectionNoticeAr: 'هذا القسم قيد الإعداد حالياً.',
   backHomeEn: 'Return to Main Page',
   backHomeAr: 'العودة إلى الصفحة الرئيسية',
-  themeLightEn: 'Light',
-  themeLightAr: 'فاتح',
-  themeDarkEn: 'OLED',
-  themeDarkAr: 'داكن',
   copyNameEn: 'Copy Company Name',
   copyNameAr: 'نسخ اسم الشركة',
   copiedEn: 'Copied!',

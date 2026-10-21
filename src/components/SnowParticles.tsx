@@ -1,9 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { Theme } from '../types';
-
-interface SnowParticlesProps {
-  theme: Theme;
-}
 
 interface Snowflake {
   x: number;
@@ -19,7 +14,7 @@ interface Snowflake {
   type: 'star6' | 'star4' | 'crystal';
 }
 
-export const SnowParticles: React.FC<SnowParticlesProps> = ({ theme }) => {
+export const SnowParticles: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -188,37 +183,19 @@ export const SnowParticles: React.FC<SnowParticlesProps> = ({ theme }) => {
           flake.x = width + 10;
         }
 
-        // Color and shadow calibration
-        if (theme === 'light') {
-          // Visible cool icy crystal color on light background
-          const strokeColor = `rgba(55, 95, 135, ${flake.opacity * 0.8})`;
-          const glowColor = `rgba(180, 215, 245, ${flake.opacity * 0.9})`;
+        // Visible cool icy crystal color on light background
+        const strokeColor = `rgba(55, 95, 135, ${flake.opacity * 0.8})`;
+        const glowColor = `rgba(180, 215, 245, ${flake.opacity * 0.9})`;
 
-          ctx.shadowColor = glowColor;
-          ctx.shadowBlur = 3;
+        ctx.shadowColor = glowColor;
+        ctx.shadowBlur = 3;
 
-          if (flake.type === 'star6') {
-            draw6PointSnowflake(flake.x, flake.y, flake.size, flake.angle, strokeColor, 1.1);
-          } else if (flake.type === 'star4') {
-            draw4PointSnowflake(flake.x, flake.y, flake.size, flake.angle, strokeColor, 1.1);
-          } else {
-            drawCrystal(flake.x, flake.y, flake.size * 0.7, flake.angle, strokeColor);
-          }
+        if (flake.type === 'star6') {
+          draw6PointSnowflake(flake.x, flake.y, flake.size, flake.angle, strokeColor, 1.1);
+        } else if (flake.type === 'star4') {
+          draw4PointSnowflake(flake.x, flake.y, flake.size, flake.angle, strokeColor, 1.1);
         } else {
-          // Luminous crisp white crystal on OLED dark background
-          const strokeColor = `rgba(240, 248, 255, ${flake.opacity * 0.95})`;
-          const glowColor = `rgba(160, 220, 255, 0.7)`;
-
-          ctx.shadowColor = glowColor;
-          ctx.shadowBlur = 4;
-
-          if (flake.type === 'star6') {
-            draw6PointSnowflake(flake.x, flake.y, flake.size, flake.angle, strokeColor, 1.2);
-          } else if (flake.type === 'star4') {
-            draw4PointSnowflake(flake.x, flake.y, flake.size, flake.angle, strokeColor, 1.2);
-          } else {
-            drawCrystal(flake.x, flake.y, flake.size * 0.7, flake.angle, strokeColor);
-          }
+          drawCrystal(flake.x, flake.y, flake.size * 0.7, flake.angle, strokeColor);
         }
       }
 
@@ -231,7 +208,7 @@ export const SnowParticles: React.FC<SnowParticlesProps> = ({ theme }) => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]);
+  }, []);
 
   return (
     <canvas

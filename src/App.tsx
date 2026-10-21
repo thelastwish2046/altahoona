@@ -8,27 +8,20 @@ import { ContactSection } from './components/ContactSection';
 import { PlaceholderSection } from './components/PlaceholderSection';
 import { Footer } from './components/Footer';
 import { BackgroundPattern } from './components/BackgroundPattern';
-import { SectionId, Language, Theme } from './types';
+import { SectionId, Language } from './types';
 
 export default function App() {
   // Main language defaults to English with toggle for Arabic support
   const [language, setLanguage] = useState<Language>('en');
-  // Light (crisp book ivory) and dark (OLED true black) themes
-  const [theme, setTheme] = useState<Theme>('light');
   // Navigation section state
   const [currentSection, setCurrentSection] = useState<SectionId>('home');
 
-  // Sync theme class to document root
+  // Ensure clean white/paper background on document root
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.style.backgroundColor = '#000000';
-    } else {
-      root.classList.remove('dark');
-      root.style.backgroundColor = '#FCFAF7';
-    }
-  }, [theme]);
+    root.classList.remove('dark');
+    root.style.backgroundColor = '#FCFAF7';
+  }, []);
 
   // Sync language and direction (LTR / RTL) to document root
   useEffect(() => {
@@ -37,27 +30,33 @@ export default function App() {
     root.setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
   }, [language]);
 
+  // Preload critical image assets immediately in the background
+  useEffect(() => {
+    const imagesToPreload = [
+      `${import.meta.env.BASE_URL}assets/aistudio/logo_transparent.png`,
+      `${import.meta.env.BASE_URL}assets/aistudio/image_b9cf93bb.png`,
+      `${import.meta.env.BASE_URL}assets/aistudio/image_02a06ac9.png`,
+    ];
+    imagesToPreload.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === 'en' ? 'ar' : 'en'));
   };
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
-
   const handleSelectSection = (section: SectionId) => {
+    if (section === currentSection) return;
     setCurrentSection(section);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   return (
-    <div
-      className={`min-h-screen flex flex-col justify-between relative transition-colors duration-200 selection:bg-amber-200 selection:text-black dark:selection:bg-neutral-800 dark:selection:text-white ${
-        theme === 'dark' ? 'bg-black text-white' : 'bg-[#FCFAF7] text-black'
-      }`}
-    >
-      {/* Static faint snowflake & grid pattern (4-5% opacity, zero motion) */}
-      <BackgroundPattern theme={theme} />
+    <div className="min-h-screen flex flex-col justify-between relative bg-[#FCFAF7] text-black selection:bg-amber-200 selection:text-black">
+      {/* Static faint snowflake & cool air gradient pattern */}
+      <BackgroundPattern />
 
       {/* Top Bar with seamless color matching the page below */}
       <Header
@@ -65,44 +64,37 @@ export default function App() {
         onSelectSection={handleSelectSection}
         language={language}
         onToggleLanguage={toggleLanguage}
-        theme={theme}
-        onToggleTheme={toggleTheme}
       />
 
       {/* Main Content Area with High-Contrast Typography and Smooth Reading Transition */}
       <main className="flex-1 flex flex-col justify-center items-center w-full relative z-10">
         <div className="w-full">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             {currentSection === 'home' ? (
               <HomeSection
                 key="home"
                 language={language}
-                theme={theme}
               />
             ) : currentSection === 'about' ? (
               <AboutSection
                 key="about"
                 language={language}
-                theme={theme}
               />
             ) : currentSection === 'services' ? (
               <ServicesSection
                 key="services"
                 language={language}
-                theme={theme}
               />
             ) : currentSection === 'contact' ? (
               <ContactSection
                 key="contact"
                 language={language}
-                theme={theme}
               />
             ) : (
               <PlaceholderSection
                 key={currentSection}
                 sectionId={currentSection}
                 language={language}
-                theme={theme}
                 onBackToHome={() => handleSelectSection('home')}
               />
             )}
@@ -111,7 +103,7 @@ export default function App() {
       </main>
 
       {/* Minimalist colophon footer, seamless with page background */}
-      <Footer language={language} theme={theme} />
+      <Footer language={language} />
     </div>
   );
 }
