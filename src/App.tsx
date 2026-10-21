@@ -4,6 +4,7 @@ import { Header } from './components/Header';
 import { HomeSection } from './components/HomeSection';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
+import { StoreSection } from './components/StoreSection';
 import { ContactSection } from './components/ContactSection';
 import { PlaceholderSection } from './components/PlaceholderSection';
 import { Footer } from './components/Footer';
@@ -83,6 +84,11 @@ export default function App() {
             ) : currentSection === 'services' ? (
               <ServicesSection
                 key="services"
+                language={language}
+              />
+            ) : currentSection === 'store' ? (
+              <StoreSection
+                key="store"
                 language={language}
               />
             ) : currentSection === 'contact' ? (

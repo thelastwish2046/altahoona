@@ -9,6 +9,7 @@
   html {
     background-color: var(--paper-bg);
     color: var(--paper-text);
+    overflow-x: hidden;
   }
 
   body {
@@ -17,6 +18,7 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     background-color: var(--paper-bg);
     color: var(--paper-text);
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -37,4 +39,13 @@
   .font-arabic-body {
     font-family: 'Readex Pro', 'Almarai', 'Cairo', system-ui, sans-serif;
   }
+}
+
+/* Hide scrollbars completely across all browsers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -1,6 +1,6 @@
 export type Language = 'en' | 'ar';
 
-export type SectionId = 'home' | 'about' | 'gallery' | 'services' | 'contact';
+export type SectionId = 'home' | 'about' | 'gallery' | 'services' | 'store' | 'contact';
 
 export interface NavItem {
   id: SectionId;
@@ -13,6 +13,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'about', labelEn: 'About Us', labelAr: 'عن الشركة' },
   { id: 'gallery', labelEn: 'Gallery', labelAr: 'المعرض' },
   { id: 'services', labelEn: 'Services', labelAr: 'الخدمات' },
+  { id: 'store', labelEn: 'Store', labelAr: 'المتجر' },
   { id: 'contact', labelEn: 'Contact', labelAr: 'اتصل بنا' },
 ];
 
