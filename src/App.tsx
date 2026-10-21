@@ -44,6 +44,21 @@ export default function App() {
     });
   }, []);
 
+  // Support direct URL hash navigation on GitHub Pages (e.g. #store, #services)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '') as SectionId;
+      const validSections: SectionId[] = ['home', 'about', 'gallery', 'services', 'store', 'contact'];
+      if (validSections.includes(hash)) {
+        setCurrentSection(hash);
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   const toggleLanguage = () => {
     setLanguage((prev) => (prev === 'en' ? 'ar' : 'en'));
   };
@@ -51,6 +66,9 @@ export default function App() {
   const handleSelectSection = (section: SectionId) => {
     if (section === currentSection) return;
     setCurrentSection(section);
+    if (window.location.hash.replace('#', '') !== section) {
+      window.history.replaceState(null, '', section === 'home' ? ' ' : `#${section}`);
+    }
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -90,6 +108,7 @@ export default function App() {
               <StoreSection
                 key="store"
                 language={language}
+                onBackToHome={() => handleSelectSection('home')}
               />
             ) : currentSection === 'contact' ? (
               <ContactSection

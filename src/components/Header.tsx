@@ -84,11 +84,14 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* ================= Desktop View (md:) ================= */}
-      <div className="hidden md:flex max-w-6xl mx-auto px-6 lg:px-12 h-24 items-center justify-center relative">
+      <div className="hidden md:flex max-w-6xl mx-auto px-6 lg:px-12 h-24 items-center justify-between">
+        {/* Balanced spacer so nav stays perfectly centered */}
+        <div className="w-24 shrink-0 pointer-events-none" aria-hidden="true" />
+
         {/* Navigation Sections Centered in the Middle Above */}
         <nav 
           aria-label={isAr ? "القائمة الرئيسية" : "Main Navigation"}
-          className="flex items-center justify-center gap-6 sm:gap-8 md:gap-10 text-base"
+          className="flex items-center justify-center gap-4 md:gap-6 lg:gap-8 text-sm lg:text-base flex-wrap"
         >
           {NAV_ITEMS.map((item) => {
             const isActive = currentSection === item.id;
@@ -128,15 +131,15 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Language Toggle positioned at the side */}
-        <div className="absolute right-6 lg:right-12 rtl:right-auto rtl:left-6 rtl:lg:left-12 flex items-center gap-3 shrink-0">
+        {/* Language Toggle positioned on the side with dedicated space */}
+        <div className="w-24 shrink-0 flex justify-end rtl:justify-start">
           <button
             onClick={onToggleLanguage}
             className="flex items-center gap-1.5 py-1 px-1.5 text-xs font-bold text-black hover:opacity-80 transition-opacity cursor-pointer"
             title={isAr ? "Switch to English" : "التبديل إلى اللغة العربية"}
             aria-label="Toggle language"
           >
-            <Globe className="w-4 h-4 text-black" />
+            <Globe className="w-4 h-4 text-black shrink-0" />
             <span className="font-sans tracking-wider">
               {isAr ? 'English' : 'العربية'}
             </span>
